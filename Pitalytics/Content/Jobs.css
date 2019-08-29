@@ -1,0 +1,236 @@
+/**Home Page Style*/
+
+#jobs > h1 { font-size: 30px; }
+
+#jobs, #job-details { font-size: 1rem; }
+
+.bold { font-weight: bold; }
+
+
+.text-capitalize { text-transform: capitalize; }
+
+
+.pb-85 { padding-bottom: 85px }
+
+.pt-20 { padding-top: 20px; }
+
+
+.text-small { font-size: 12px; }
+
+.bg-dark-blue {
+    background-color: #0D87B1 !important;
+}
+
+.text-dark-blue {
+    color: #0D87B1 !important;
+}
+
+
+/*** Header **/
+
+
+
+
+.bg { background: rgba(0, 0, 0, 0) url("/Images/home-bg.jpg"); }
+
+
+.bg {
+ 
+    background-attachment: scroll;
+    background-clip: initial;
+    background-color: #868e96;
+    background-origin: initial;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    z-index: 0;  
+}
+
+.bg .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #212529;
+    opacity: .5
+}
+
+
+   
+
+.pb-20 { padding-bottom: 20px; }
+
+.pt-05 { padding-top: 5px; }
+
+
+
+
+
+.breadcrumb-text {
+    z-index: 9;
+    position: relative;
+}
+
+.breadcrumb-text h2 {
+    font-family: montserratsemi_bold;
+    line-height: 25px;
+    margin-bottom: 15px;
+    font-size: 38px;
+    color: #333;
+}
+
+
+
+header.masthead {
+   
+    background: no-repeat center center;
+    background-color: #868e96;
+    background-attachment: scroll;
+    position: relative;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover
+}
+
+
+
+header.masthead .page-heading, header.masthead .post-heading, header.masthead .site-heading {
+    /*    padding: 20px 0 10px;*/
+    color: #fff
+}
+
+@media only screen and (min-width: 768px) {
+    header.masthead .page-heading, header.masthead .post-heading, header.masthead .site-heading { padding: 20px 0 }
+}
+
+header.masthead .page-heading, header.masthead .site-heading { text-align: center }
+
+header.masthead .page-heading h1, header.masthead .site-heading h1 {
+    font-size: 50px;
+    margin-top: 0
+}
+
+header.masthead .page-heading .subheading, header.masthead .site-heading .subheading {
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 1.1;
+    display: block;
+    margin: 10px 0 0;
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif
+}
+
+@media only screen and (min-width: 768px) {
+    header.masthead .page-heading h1, header.masthead .site-heading h1 { font-size: 70px }
+}
+
+header.masthead .post-heading h1 { font-size: 30px }
+
+header.masthead .post-heading .meta, header.masthead .post-heading .subheading {
+    line-height: 1.1;
+    display: block
+}
+
+header.masthead .post-heading .subheading {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 10px 0 30px;
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif
+}
+
+header.masthead .post-heading .meta {
+    font-size: 20px;
+    font-weight: 300;
+    font-style: italic;
+    font-family: Lora, 'Times New Roman', serif
+}
+
+header.masthead .post-heading .meta a { color: #fff }
+
+@media only screen and (min-width: 768px) {
+    header.masthead .post-heading h1 { font-size: 55px }
+
+    header.masthead .post-heading .subheading { font-size: 30px }
+}
+
+header.h1, h1 {
+    font-size: 2.5rem;
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+button, input, optgroup, select, textarea {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+*, ::after, ::before { box-sizing: border-box; }
+
+
+.form-control {
+    display: block;
+    width: 100%;
+    height: calc(2.25rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+button, input { overflow: visible; }
+
+button, input, optgroup, select, textarea {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.form-control-lg {
+  
+    display: block;
+    width: 100%;
+  
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+
+.form-control-sm {
+    height: calc(1.8125rem + 2px);
+    padding: .25rem .5rem;
+    font-size: .875rem;
+    line-height: 1.5;
+    border-radius: .2rem
+}
+
+.bg-dark-blue { background-color: #0D87B1 !important; }
+
+.text-dark-blue { color: #0D87B1 !important; }
+
+.h4, h4 { font-size: 1.5rem; }
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    margin-bottom: .5rem;
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.2;
+    color: inherit;
+}

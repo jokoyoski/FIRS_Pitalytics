@@ -1,0 +1,18 @@
+﻿
+.login-form-section {
+    background-color: white;
+    padding:25px 25px;
+}
+
+.button-type{
+ border-radius:30px;
+ background-color:black;
+ color:white;
+ width:100px;
+  
+}
+
+.text-type {
+    border: 1.5px solid blue !important;
+}
+

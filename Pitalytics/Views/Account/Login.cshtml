@@ -1,0 +1,79 @@
+﻿@model Pitalytics.Interfaces.ILogOnView
+
+
+
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<div class="container-fluid " style="background: linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)),  url('../../images/helloquence-5fNmWej4tAA-unsplash.jpg'); height: 700px; width: 100%; background-repeat: no-repeat; background-size: cover; background-position: center;">
+    <div class="row col-md-12">
+
+        <div class="col-md-6 text-center mt-md-5 col-xs-12">
+            <div class="txtlogin mt-md-5">
+                <div class="pt-md-5 pt-3">
+                    <h1 class="text-white">
+                        <b>Intelligent Data Gathering  <br />for Tax Agents</b>
+                    </h1>
+                    <h5 class="text-white">
+                        <b>Let's help you Manage your Tax.</b>
+                    </h5>
+                    <p class="text-white">Pitalytics is an intelligent data gathering and analytic software <br />which helps tax agents to file their tax returns
+                    <p>
+
+
+                        <div class="mb-4 mt-5">
+                            <a class="btn-lg btn-primary" style="text-decoration:none" href="/Account/RegisterAgentofDeduction"><span style="color:white">Register As Tax Agent</span></a>
+
+                        </div>
+
+                        <div class="mb-5">
+                            <a class="btn-lg btn-primary" style="text-decoration:none" href="/Account/RegisterTaxAuthority"><span style="color:white">Register As Tax Authority</span></a>
+
+                        </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mt-md-5 col-xs-6" style="padding-left: 200px; padding-right: 100px">
+            <div class="card rounded-0">
+                <div class="card-header text-white" style="background-color:#191919;"><h4 class="mb-0 text-center">Log In</h4></div>
+                <div class="card-body">
+                    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new
+                    {
+                        id = "loginForm"
+                    }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <span style="color:red"> @Html.ValidationSummary()</span>
+                        <div>
+                            <span style="color:red"> @Model.InfoMessage</span>
+                        </div>
+                        <div class="input-container form-group">
+                            <input type="text" class="input form-control border-dark col-md-12" name="Email" placeholder="Email" />
+                        </div>
+                        <div class="input-container mt-4 form-group">
+                            <input type="password" id="login-password" class="input form-control border-dark col-md-12" name="Password" placeholder="Password" />
+                        </div>
+                        <div style="text-align:center">
+                            <input type="submit" name="login" value="S I G N  I N" class="button-type text-center" />
+
+                        </div>
+                        <div class="mt-4">
+
+                            <p style="color:black">
+                                <a href="/Account/ForgetPassword"><span style="color:black;">Forgot Password ?</span></a>
+                            </p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+   
+
+</div>

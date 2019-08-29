@@ -1,0 +1,349 @@
+﻿@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@model Pitalytics.Interfaces.IAgentOfDeductionListView
+
+
+@{
+    var hasInfo = (Model != null) && (Model.AgentOfDeductions.Any());
+}
+
+
+
+@Html.AntiForgeryToken()
+
+@if (!string.IsNullOrEmpty(Model.ProcessingMessage))
+{
+    <div>
+        <div class="container">
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true"><i class="notika-icon notika-close"></i></span></button> @Model.ProcessingMessage
+            </div>
+
+        </div>
+    </div>
+}
+
+@if (hasInfo)
+{
+    <div class="data-table-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="data-table-list">
+                        <div class="table-responsive">
+                            <table id="data-table-basic" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Company Name</th>
+                                        <th>Industry Type</th>
+                                        <th>CAC Number</th>
+                                        <th>FIRS TIN</th>
+                                        <th>Activate</th>
+
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var d in Model.AgentOfDeductions)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @d.CompanyName
+                                            </td>
+
+                                            <td>
+                                                @d.IndustryName
+                                            </td>
+                                            <td>
+                                                @d.CACRegNo
+                                            </td>
+                                            <td>
+                                                @d.FIRS_TIN
+                                            </td>
+
+                                            @if (d.IsActive == true)
+                                            {
+                                                <td>
+                                                   <a class="btn btn-danger" href="DeactivateAgentOfDeduction?agentOfDeductionId=@d.AgentOfDeductionId">DeActivate</a>
+                                                </td>
+
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                    <a class="btn btn-success" href="ActivateAgentOfDeduction?agentOfDeductionId=@d.AgentOfDeductionId">Activate</a>
+
+                                                </td>
+                                            }
+
+
+
+
+
+
+
+
+
+
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot>
+
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="container">
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true"><i class="notika-icon notika-close"></i></span></button>No Company Exists, register new company.
+
+        </div>
+    </div>
+}
+
+
+
+
+
+
+<div class="modal fade" id="createModal" role="dialog">
+    <div class="modal-dialog modals-default">
+        <div class="modal-content">
+            <div id="displayCreate">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="viewModal" role="dialog">
+    <div class="modal-dialog modals-default">
+        <div class="modal-content">
+            <div id="displayView">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="editModal" role="dialog">
+    <div class="modal-dialog modals-default">
+        <div class="modal-content">
+            <div id="displayEdit">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteModal" role="dialog">
+    <div class="modal-dialog modals-default">
+        <div class="modal-content">
+            <div id="displayDelete">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var URL = "";
+
+    function createModal(URL) {
+
+        $.ajax({
+            type: "GET",
+            url: URL,
+            success: function (data) {
+                $("#displayCreate").html(data);
+            }
+        });
+
+        $("#createModal").modal();
+    }
+
+    function viewModal(URL) {
+
+        $.ajax({
+            type: "GET",
+            url: URL,
+            success: function (data) {
+                $("#displayView").html(data);
+            }
+        });
+
+        $("#viewModal").modal();
+    }
+
+    function editModal(URL) {
+
+        $.ajax({
+            type: "GET",
+            url: URL,
+            success: function (data) {
+                $("#displayEdit").html(data);
+            }
+        });
+
+        $("#editModal").modal();
+
+    }
+
+    function deleteModal(URL) {
+
+        $.ajax({
+            type: "GET",
+            url: URL,
+            success: function (data) {
+                $("#displayDelete").html(data);
+            }
+        });
+
+        $("#deleteModal").modal();
+
+    }
+</script>
+
+@section scripts{
+
+
+    <!-- End Footer area-->
+    <!-- jquery
+        ============================================ -->
+    <script src=" ~/Scripts/vendor/jquery-1.12.4.min.js"></script>
+    <!-- bootstrap JS
+        ============================================ -->
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <!-- wow JS
+        ============================================ -->
+    <script src="~/Scripts/wow.min.js"></script>
+    <!-- price-slider JS
+        ============================================ -->
+    <script src="~/Scripts/jquery-price-slider.js"></script>
+    <!-- owl.carousel JS
+        ============================================ -->
+    <script src="~/Scripts/owl.carousel.min.js"></script>
+    <!-- scrollUp JS
+        ============================================ -->
+    <script src="~/Scripts/jquery.scrollUp.min.js"></script>
+    <!-- meanmenu JS
+        ============================================ -->
+    <script src="~/Scripts/meanmenu/jquery.meanmenu.js"></script>
+    <!-- counterup JS
+        ============================================ -->
+    <script src="~/Scripts/counterup/jquery.counterup.min.js"></script>
+    <script src="~/Scripts/counterup/waypoints.min.js"></script>
+    <script src="~/Scripts/counterup/counterup-active.js"></script>
+    <!-- mCustomScrollbar JS
+        ============================================ -->
+    <script src="~/Scripts/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <!-- sparkline JS
+        ============================================ -->
+    <script src="~/Scripts/sparkline/jquery.sparkline.min.js"></script>
+    <script src="~/Scripts/sparkline/sparkline-active.js"></script>
+
+    <!-- flot JS
+        ============================================ -->
+    <script src="~/Scripts/flot/jquery.flot.js"></script>
+    <script src="~/Scripts/flot/jquery.flot.resize.js"></script>
+    <script src="~/Scripts/flot/flot-active.js"></script>
+    <!-- knob JS
+        ============================================ -->
+    <script src="~/Scripts/knob/jquery.knob.js"></script>
+    <script src="~/Scripts/knob/jquery.appear.js"></script>
+    <script src="~/Scripts/knob/knob-active.js"></script>
+    <!--  Chat JS
+        ============================================ -->
+    <script src="~/Scripts/chat/jquery.chat.js"></script>
+    <!--  todo JS
+        ============================================ -->
+    <script src="~/Scripts/todo/jquery.todo.js"></script>
+    <!--  wave JS
+        ============================================ -->
+  
+    <script src="~/Scripts/wave/wave-active.js"></script>
+    <!-- plugins JS
+        ============================================ -->
+    <script src="~/Scripts/plugins.js"></script>
+    <!-- Data Table JS
+        ============================================ -->
+    <script src="~/Scripts/data-table/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/data-table/data-table-act.js"></script>
+    <!-- main JS
+        ============================================ -->
+    <script src="~/Scripts/main.js"></script>
+    <!-- tawk chat JS
+        ============================================ -->
+    <script src="~/Scripts/tawk-chat.js"></script>
+
+
+}
+
+
+@section StyleSheets{
+
+
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    <!-- Google Fonts
+        ============================================ -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
+    <!-- Bootstrap CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Content/asset/css/bootstrap.min.css">
+    <!-- font awesome CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Content/asset/css/font-awesome.min.css">
+    <!-- owl.carousel CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Content/asset/css/owl.carousel.css">
+    <link rel="stylesheet" href="~/Content/asset/css/owl.theme.css">
+    <link rel="stylesheet" href="~/Content/asset/css/owl.transitions.css">
+    <!-- meanmenu CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Content/asset/css/meanmenu/meanmenu.min.css">
+    <!-- animate CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Content/asset/css/animate.css">
+    <!-- normalize CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Content/asset/css/normalize.css">
+    <!-- wave CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Content/asset/css/wave/waves.min.css">
+    <link rel="stylesheet" href="~/Content/asset/css/wave/button.css">
+    <!-- mCustomScrollbar CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Content/asset/css/scrollbar/jquery.mCustomScrollbar.min.css">
+    <!-- Notika icon CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Content/asset/css/notika-custom-icon.css">
+    <!-- Data Table JS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Content/asset/css/jquery.dataTables.min.css">
+    <!-- main CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Content/asset/css/main.css">
+    <!-- style CSS
+
+            ============================================ -->
+    <link href="~/Content/asset/css/newSite.css" rel="stylesheet" />
+    <!-- responsive CSS
+        ============================================ -->
+    <link rel="stylesheet" href="~/Content/asset/css/responsive.css">
+
+
+}

@@ -1,0 +1,988 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PitalyticsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ActionLog">
+          <Key>
+            <PropertyRef Name="ActionLogId" />
+          </Key>
+          <Property Name="ActionLogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserEmail" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Action" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LogDate" Type="datetime" Nullable="false" />
+          <Property Name="Granted" Type="bit" Nullable="false" />
+          <Property Name="DateStamp" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AdminUserTable">
+          <Key>
+            <PropertyRef Name="AdminUserId" />
+          </Key>
+          <Property Name="AdminUserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdminId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AgentOfDeductionBranch">
+          <Key>
+            <PropertyRef Name="AgentOfDeductionBranchId" />
+          </Key>
+          <Property Name="AgentOfDeductionBranchId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AgentOfDeductionId" Type="int" Nullable="false" />
+          <Property Name="BranchId" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="DateCreated" Type="bit" />
+        </EntityType>
+        <EntityType Name="AgentOfDeductionInfo">
+          <Key>
+            <PropertyRef Name="AgentOfDeductionId" />
+          </Key>
+          <Property Name="AgentOfDeductionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="FIRS_TIN" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="BVN" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="CACRegNo" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="IndustryId" Type="int" Nullable="false" />
+          <Property Name="WebsiteAddress" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="IsVerified" Type="bit" Nullable="false" />
+          <Property Name="UserRegistrationId" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="AppActivityLog">
+          <Key>
+            <PropertyRef Name="AppActivityLogId" />
+          </Key>
+          <Property Name="AppActivityLogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LogDate" Type="datetime" Nullable="false" />
+          <Property Name="UserEmail" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Activity" Type="varchar(max)" Nullable="false" />
+          <Property Name="OrderIdentifer" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Beneficiary">
+          <Key>
+            <PropertyRef Name="BeneficiaryId" />
+          </Key>
+          <Property Name="BeneficiaryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CACRegNo" Type="int" Nullable="false" />
+          <Property Name="BVN" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="JurisdictionId" Type="int" Nullable="false" />
+          <Property Name="BeneficiaryName" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Branch">
+          <Key>
+            <PropertyRef Name="BranchId" />
+          </Key>
+          <Property Name="BranchId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BranchName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="BranchJurisdiction">
+          <Key>
+            <PropertyRef Name="BranchJurisdictionId" />
+          </Key>
+          <Property Name="BranchJurisdictionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BranchId" Type="int" Nullable="false" />
+          <Property Name="JurisdictionId" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="DigitalFile">
+          <Key>
+            <PropertyRef Name="DigitalFileId" />
+          </Key>
+          <Property Name="DigitalFileId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileContent" Type="varbinary(max)" Nullable="false" />
+          <Property Name="DigitalTypeId" Type="int" Nullable="false" />
+          <Property Name="FileExtension" Type="varchar" MaxLength="10" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="ContentType" Type="varchar" MaxLength="100" />
+          <Property Name="FileName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="FileTypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FileType">
+          <Key>
+            <PropertyRef Name="FileTypeId" />
+          </Key>
+          <Property Name="FileTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileTypeName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IncomeReport">
+          <Key>
+            <PropertyRef Name="IncomeReportId" />
+          </Key>
+          <Property Name="IncomeReportId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Dividends" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="ProfessionalServices" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="DirectorFees" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="RentHire" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Interest" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Construction" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="ContractOfSupplies" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="ContractOfServices" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="TechnicalConsultancy" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="ManagementComm" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Royalty" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="DateCreated" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="BVN" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="BeneficiaryTin" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IncomeType">
+          <Key>
+            <PropertyRef Name="IncomeTypeId" />
+          </Key>
+          <Property Name="IncomeTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IncomeTypeName" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="40" />
+          <Property Name="WHT_Rate" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Industry">
+          <Key>
+            <PropertyRef Name="IndustryId" />
+          </Key>
+          <Property Name="IndustryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IndustryName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="40" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="InlandRevenue">
+          <Key>
+            <PropertyRef Name="InlandRevenueId" />
+          </Key>
+          <Property Name="InlandRevenueId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InlandRevenueName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Jurisdiction">
+          <Key>
+            <PropertyRef Name="JurisdictionId" />
+          </Key>
+          <Property Name="JurisdictionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="JurisdictionName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="40" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="JurisdictionIncomeType">
+          <Key>
+            <PropertyRef Name="JurisdictionIncomeTypeId" />
+          </Key>
+          <Property Name="JurisdictionIncomeTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="JurisdictionId" Type="int" Nullable="false" />
+          <Property Name="IncomeTypeId" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="RoleStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdminRole" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="UserRole" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TaxAuthority">
+          <Key>
+            <PropertyRef Name="TaxAuthorityId" />
+          </Key>
+          <Property Name="TaxAuthorityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="40" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="InlandRevenueId" Type="int" Nullable="false" />
+          <Property Name="JurisdictionId" Type="int" Nullable="false" />
+          <Property Name="UserRegistrationId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TaxReport">
+          <Key>
+            <PropertyRef Name="TaxReportId" />
+          </Key>
+          <Property Name="TaxReportId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Year" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="IncomeTypeId" Type="int" Nullable="false" />
+          <Property Name="BVN" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="IncomeAmount" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="TaxAmount" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="BeneficiaryTIN" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TaxReturn">
+          <Key>
+            <PropertyRef Name="TaxReturnId" />
+          </Key>
+          <Property Name="TaxReturnId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BeneficiaryTin" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="BeneficiaryName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="BVN" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="BeneficiaryAddress" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="InvoiceNo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ContractDate" Type="date" Nullable="false" />
+          <Property Name="ContractDescription" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ContractAmount" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="WHT_Rate" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="WHT_Amount" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="IncomeTypeId" Type="int" Nullable="false" />
+          <Property Name="UserRegistrationId" Type="int" Nullable="false" />
+          <Property Name="AgentOfDeductionId" Type="int" Nullable="false" />
+          <Property Name="BranchId" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="JurisdictionId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserActivationCode">
+          <Key>
+            <PropertyRef Name="UserActivationCodeId" />
+          </Key>
+          <Property Name="UserActivationCodeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserRegistrationId" Type="int" Nullable="false" />
+          <Property Name="ActivationCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ExpirationDate" Type="datetime" Nullable="false" />
+          <Property Name="IsUsed" Type="bit" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserBranch">
+          <Key>
+            <PropertyRef Name="UserBranchId" />
+          </Key>
+          <Property Name="UserBranchId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BranchId" Type="int" Nullable="false" />
+          <Property Name="UserRegistrationId" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UserRegistration">
+          <Key>
+            <PropertyRef Name="UserRegistrationId" />
+          </Key>
+          <Property Name="UserRegistrationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="25" />
+          <Property Name="LastName" Type="varchar" MaxLength="25" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateVerified" Type="datetime" Nullable="false" />
+          <Property Name="IsUserVerified" Type="bit" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="UserRoleId" />
+          </Key>
+          <Property Name="UserRoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="PitalyticsModelStoreContainer">
+          <EntitySet Name="ActionLog" EntityType="Self.ActionLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AdminUserTable" EntityType="Self.AdminUserTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AgentOfDeductionBranch" EntityType="Self.AgentOfDeductionBranch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AgentOfDeductionInfo" EntityType="Self.AgentOfDeductionInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AppActivityLog" EntityType="Self.AppActivityLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Beneficiary" EntityType="Self.Beneficiary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Branch" EntityType="Self.Branch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BranchJurisdiction" EntityType="Self.BranchJurisdiction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DigitalFile" EntityType="Self.DigitalFile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FileType" EntityType="Self.FileType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IncomeReport" EntityType="Self.IncomeReport" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IncomeType" EntityType="Self.IncomeType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Industry" EntityType="Self.Industry" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InlandRevenue" EntityType="Self.InlandRevenue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Jurisdiction" EntityType="Self.Jurisdiction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JurisdictionIncomeType" EntityType="Self.JurisdictionIncomeType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoleStatus" EntityType="Self.RoleStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaxAuthority" EntityType="Self.TaxAuthority" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaxReport" EntityType="Self.TaxReport" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaxReturn" EntityType="Self.TaxReturn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserActivationCode" EntityType="Self.UserActivationCode" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserBranch" EntityType="Self.UserBranch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRegistration" EntityType="Self.UserRegistration" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PitalyticsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ActionLog">
+          <Key>
+            <PropertyRef Name="ActionLogId" />
+          </Key>
+          <Property Name="ActionLogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Action" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LogDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Granted" Type="Boolean" Nullable="false" />
+          <Property Name="DateStamp" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="AdminUserTable">
+          <Key>
+            <PropertyRef Name="AdminUserId" />
+          </Key>
+          <Property Name="AdminUserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdminId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AgentOfDeductionBranch">
+          <Key>
+            <PropertyRef Name="AgentOfDeductionBranchId" />
+          </Key>
+          <Property Name="AgentOfDeductionBranchId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AgentOfDeductionId" Type="Int32" Nullable="false" />
+          <Property Name="BranchId" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreated" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="AgentOfDeductionInfo">
+          <Key>
+            <PropertyRef Name="AgentOfDeductionId" />
+          </Key>
+          <Property Name="AgentOfDeductionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FIRS_TIN" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BVN" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CACRegNo" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IndustryId" Type="Int32" Nullable="false" />
+          <Property Name="WebsiteAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsVerified" Type="Boolean" Nullable="false" />
+          <Property Name="UserRegistrationId" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="AppActivityLog">
+          <Key>
+            <PropertyRef Name="AppActivityLogId" />
+          </Key>
+          <Property Name="AppActivityLogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LogDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Activity" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OrderIdentifer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Beneficiary">
+          <Key>
+            <PropertyRef Name="BeneficiaryId" />
+          </Key>
+          <Property Name="BeneficiaryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CACRegNo" Type="Int32" Nullable="false" />
+          <Property Name="BVN" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="JurisdictionId" Type="Int32" Nullable="false" />
+          <Property Name="BeneficiaryName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Branch">
+          <Key>
+            <PropertyRef Name="BranchId" />
+          </Key>
+          <Property Name="BranchId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BranchName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="BranchJurisdiction">
+          <Key>
+            <PropertyRef Name="BranchJurisdictionId" />
+          </Key>
+          <Property Name="BranchJurisdictionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BranchId" Type="Int32" Nullable="false" />
+          <Property Name="JurisdictionId" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="DigitalFile">
+          <Key>
+            <PropertyRef Name="DigitalFileId" />
+          </Key>
+          <Property Name="DigitalFileId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileContent" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="DigitalTypeId" Type="Int32" Nullable="false" />
+          <Property Name="FileExtension" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="ContentType" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FileName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FileTypeId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FileType">
+          <Key>
+            <PropertyRef Name="FileTypeId" />
+          </Key>
+          <Property Name="FileTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IncomeReport">
+          <Key>
+            <PropertyRef Name="IncomeReportId" />
+          </Key>
+          <Property Name="IncomeReportId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Dividends" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ProfessionalServices" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="DirectorFees" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="RentHire" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Interest" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Construction" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ContractOfSupplies" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ContractOfServices" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="TechnicalConsultancy" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ManagementComm" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Royalty" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="DateCreated" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BVN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BeneficiaryTin" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IncomeType">
+          <Key>
+            <PropertyRef Name="IncomeTypeId" />
+          </Key>
+          <Property Name="IncomeTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IncomeTypeName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="WHT_Rate" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Industry">
+          <Key>
+            <PropertyRef Name="IndustryId" />
+          </Key>
+          <Property Name="IndustryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IndustryName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="InlandRevenue">
+          <Key>
+            <PropertyRef Name="InlandRevenueId" />
+          </Key>
+          <Property Name="InlandRevenueId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InlandRevenueName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Jurisdiction">
+          <Key>
+            <PropertyRef Name="JurisdictionId" />
+          </Key>
+          <Property Name="JurisdictionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="JurisdictionName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="JurisdictionIncomeType">
+          <Key>
+            <PropertyRef Name="JurisdictionIncomeTypeId" />
+          </Key>
+          <Property Name="JurisdictionIncomeTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="JurisdictionId" Type="Int32" Nullable="false" />
+          <Property Name="IncomeTypeId" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="RoleStatu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdminRole" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserRole" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TaxAuthority">
+          <Key>
+            <PropertyRef Name="TaxAuthorityId" />
+          </Key>
+          <Property Name="TaxAuthorityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="InlandRevenueId" Type="Int32" Nullable="false" />
+          <Property Name="JurisdictionId" Type="Int32" Nullable="false" />
+          <Property Name="UserRegistrationId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TaxReport">
+          <Key>
+            <PropertyRef Name="TaxReportId" />
+          </Key>
+          <Property Name="TaxReportId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Year" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IncomeTypeId" Type="Int32" Nullable="false" />
+          <Property Name="BVN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IncomeAmount" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="TaxAmount" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="BeneficiaryTIN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TaxReturn">
+          <Key>
+            <PropertyRef Name="TaxReturnId" />
+          </Key>
+          <Property Name="TaxReturnId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BeneficiaryTin" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BeneficiaryName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BVN" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BeneficiaryAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="InvoiceNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ContractDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ContractDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ContractAmount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="WHT_Rate" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="WHT_Amount" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IncomeTypeId" Type="Int32" Nullable="false" />
+          <Property Name="UserRegistrationId" Type="Int32" Nullable="false" />
+          <Property Name="AgentOfDeductionId" Type="Int32" Nullable="false" />
+          <Property Name="BranchId" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="JurisdictionId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserActivationCode">
+          <Key>
+            <PropertyRef Name="UserActivationCodeId" />
+          </Key>
+          <Property Name="UserActivationCodeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserRegistrationId" Type="Int32" Nullable="false" />
+          <Property Name="ActivationCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ExpirationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsUsed" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="UserBranch">
+          <Key>
+            <PropertyRef Name="UserBranchId" />
+          </Key>
+          <Property Name="UserBranchId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BranchId" Type="Int32" Nullable="false" />
+          <Property Name="UserRegistrationId" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="UserRegistration">
+          <Key>
+            <PropertyRef Name="UserRegistrationId" />
+          </Key>
+          <Property Name="UserRegistrationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateVerified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsUserVerified" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="UserRoleId" />
+          </Key>
+          <Property Name="UserRoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="PitalyticsEntities24" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ActionLogs" EntityType="Self.ActionLog" />
+          <EntitySet Name="AdminUserTables" EntityType="Self.AdminUserTable" />
+          <EntitySet Name="AgentOfDeductionBranches" EntityType="Self.AgentOfDeductionBranch" />
+          <EntitySet Name="AgentOfDeductionInfoes" EntityType="Self.AgentOfDeductionInfo" />
+          <EntitySet Name="AppActivityLogs" EntityType="Self.AppActivityLog" />
+          <EntitySet Name="Beneficiaries" EntityType="Self.Beneficiary" />
+          <EntitySet Name="Branches" EntityType="Self.Branch" />
+          <EntitySet Name="BranchJurisdictions" EntityType="Self.BranchJurisdiction" />
+          <EntitySet Name="DigitalFiles" EntityType="Self.DigitalFile" />
+          <EntitySet Name="FileTypes" EntityType="Self.FileType" />
+          <EntitySet Name="IncomeReports" EntityType="Self.IncomeReport" />
+          <EntitySet Name="IncomeTypes" EntityType="Self.IncomeType" />
+          <EntitySet Name="Industries" EntityType="Self.Industry" />
+          <EntitySet Name="InlandRevenues" EntityType="Self.InlandRevenue" />
+          <EntitySet Name="Jurisdictions" EntityType="Self.Jurisdiction" />
+          <EntitySet Name="JurisdictionIncomeTypes" EntityType="Self.JurisdictionIncomeType" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="RoleStatus" EntityType="Self.RoleStatu" />
+          <EntitySet Name="TaxAuthorities" EntityType="Self.TaxAuthority" />
+          <EntitySet Name="TaxReports" EntityType="Self.TaxReport" />
+          <EntitySet Name="TaxReturns" EntityType="Self.TaxReturn" />
+          <EntitySet Name="UserActivationCodes" EntityType="Self.UserActivationCode" />
+          <EntitySet Name="UserBranches" EntityType="Self.UserBranch" />
+          <EntitySet Name="UserRegistrations" EntityType="Self.UserRegistration" />
+          <EntitySet Name="UserRoles" EntityType="Self.UserRole" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PitalyticsModelStoreContainer" CdmEntityContainer="PitalyticsEntities24">
+          <EntitySetMapping Name="ActionLogs">
+            <EntityTypeMapping TypeName="PitalyticsModel.ActionLog">
+              <MappingFragment StoreEntitySet="ActionLog">
+                <ScalarProperty Name="ActionLogId" ColumnName="ActionLogId" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="LogDate" ColumnName="LogDate" />
+                <ScalarProperty Name="Granted" ColumnName="Granted" />
+                <ScalarProperty Name="DateStamp" ColumnName="DateStamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AdminUserTables">
+            <EntityTypeMapping TypeName="PitalyticsModel.AdminUserTable">
+              <MappingFragment StoreEntitySet="AdminUserTable">
+                <ScalarProperty Name="AdminUserId" ColumnName="AdminUserId" />
+                <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AgentOfDeductionBranches">
+            <EntityTypeMapping TypeName="PitalyticsModel.AgentOfDeductionBranch">
+              <MappingFragment StoreEntitySet="AgentOfDeductionBranch">
+                <ScalarProperty Name="AgentOfDeductionBranchId" ColumnName="AgentOfDeductionBranchId" />
+                <ScalarProperty Name="AgentOfDeductionId" ColumnName="AgentOfDeductionId" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AgentOfDeductionInfoes">
+            <EntityTypeMapping TypeName="PitalyticsModel.AgentOfDeductionInfo">
+              <MappingFragment StoreEntitySet="AgentOfDeductionInfo">
+                <ScalarProperty Name="AgentOfDeductionId" ColumnName="AgentOfDeductionId" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="FIRS_TIN" ColumnName="FIRS_TIN" />
+                <ScalarProperty Name="BVN" ColumnName="BVN" />
+                <ScalarProperty Name="CACRegNo" ColumnName="CACRegNo" />
+                <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
+                <ScalarProperty Name="WebsiteAddress" ColumnName="WebsiteAddress" />
+                <ScalarProperty Name="IsVerified" ColumnName="IsVerified" />
+                <ScalarProperty Name="UserRegistrationId" ColumnName="UserRegistrationId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AppActivityLogs">
+            <EntityTypeMapping TypeName="PitalyticsModel.AppActivityLog">
+              <MappingFragment StoreEntitySet="AppActivityLog">
+                <ScalarProperty Name="AppActivityLogId" ColumnName="AppActivityLogId" />
+                <ScalarProperty Name="LogDate" ColumnName="LogDate" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="Activity" ColumnName="Activity" />
+                <ScalarProperty Name="OrderIdentifer" ColumnName="OrderIdentifer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Beneficiaries">
+            <EntityTypeMapping TypeName="PitalyticsModel.Beneficiary">
+              <MappingFragment StoreEntitySet="Beneficiary">
+                <ScalarProperty Name="BeneficiaryId" ColumnName="BeneficiaryId" />
+                <ScalarProperty Name="CACRegNo" ColumnName="CACRegNo" />
+                <ScalarProperty Name="BVN" ColumnName="BVN" />
+                <ScalarProperty Name="JurisdictionId" ColumnName="JurisdictionId" />
+                <ScalarProperty Name="BeneficiaryName" ColumnName="BeneficiaryName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Branches">
+            <EntityTypeMapping TypeName="PitalyticsModel.Branch">
+              <MappingFragment StoreEntitySet="Branch">
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BranchJurisdictions">
+            <EntityTypeMapping TypeName="PitalyticsModel.BranchJurisdiction">
+              <MappingFragment StoreEntitySet="BranchJurisdiction">
+                <ScalarProperty Name="BranchJurisdictionId" ColumnName="BranchJurisdictionId" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="JurisdictionId" ColumnName="JurisdictionId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DigitalFiles">
+            <EntityTypeMapping TypeName="PitalyticsModel.DigitalFile">
+              <MappingFragment StoreEntitySet="DigitalFile">
+                <ScalarProperty Name="DigitalFileId" ColumnName="DigitalFileId" />
+                <ScalarProperty Name="FileContent" ColumnName="FileContent" />
+                <ScalarProperty Name="DigitalTypeId" ColumnName="DigitalTypeId" />
+                <ScalarProperty Name="FileExtension" ColumnName="FileExtension" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="FileTypeId" ColumnName="FileTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FileTypes">
+            <EntityTypeMapping TypeName="PitalyticsModel.FileType">
+              <MappingFragment StoreEntitySet="FileType">
+                <ScalarProperty Name="FileTypeId" ColumnName="FileTypeId" />
+                <ScalarProperty Name="FileTypeName" ColumnName="FileTypeName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IncomeReports">
+            <EntityTypeMapping TypeName="PitalyticsModel.IncomeReport">
+              <MappingFragment StoreEntitySet="IncomeReport">
+                <ScalarProperty Name="IncomeReportId" ColumnName="IncomeReportId" />
+                <ScalarProperty Name="Dividends" ColumnName="Dividends" />
+                <ScalarProperty Name="ProfessionalServices" ColumnName="ProfessionalServices" />
+                <ScalarProperty Name="DirectorFees" ColumnName="DirectorFees" />
+                <ScalarProperty Name="RentHire" ColumnName="RentHire" />
+                <ScalarProperty Name="Interest" ColumnName="Interest" />
+                <ScalarProperty Name="Construction" ColumnName="Construction" />
+                <ScalarProperty Name="ContractOfSupplies" ColumnName="ContractOfSupplies" />
+                <ScalarProperty Name="ContractOfServices" ColumnName="ContractOfServices" />
+                <ScalarProperty Name="TechnicalConsultancy" ColumnName="TechnicalConsultancy" />
+                <ScalarProperty Name="ManagementComm" ColumnName="ManagementComm" />
+                <ScalarProperty Name="Royalty" ColumnName="Royalty" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="BVN" ColumnName="BVN" />
+                <ScalarProperty Name="BeneficiaryTin" ColumnName="BeneficiaryTin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IncomeTypes">
+            <EntityTypeMapping TypeName="PitalyticsModel.IncomeType">
+              <MappingFragment StoreEntitySet="IncomeType">
+                <ScalarProperty Name="IncomeTypeId" ColumnName="IncomeTypeId" />
+                <ScalarProperty Name="IncomeTypeName" ColumnName="IncomeTypeName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="WHT_Rate" ColumnName="WHT_Rate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Industries">
+            <EntityTypeMapping TypeName="PitalyticsModel.Industry">
+              <MappingFragment StoreEntitySet="Industry">
+                <ScalarProperty Name="IndustryId" ColumnName="IndustryId" />
+                <ScalarProperty Name="IndustryName" ColumnName="IndustryName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InlandRevenues">
+            <EntityTypeMapping TypeName="PitalyticsModel.InlandRevenue">
+              <MappingFragment StoreEntitySet="InlandRevenue">
+                <ScalarProperty Name="InlandRevenueId" ColumnName="InlandRevenueId" />
+                <ScalarProperty Name="InlandRevenueName" ColumnName="InlandRevenueName" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Jurisdictions">
+            <EntityTypeMapping TypeName="PitalyticsModel.Jurisdiction">
+              <MappingFragment StoreEntitySet="Jurisdiction">
+                <ScalarProperty Name="JurisdictionId" ColumnName="JurisdictionId" />
+                <ScalarProperty Name="JurisdictionName" ColumnName="JurisdictionName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JurisdictionIncomeTypes">
+            <EntityTypeMapping TypeName="PitalyticsModel.JurisdictionIncomeType">
+              <MappingFragment StoreEntitySet="JurisdictionIncomeType">
+                <ScalarProperty Name="JurisdictionIncomeTypeId" ColumnName="JurisdictionIncomeTypeId" />
+                <ScalarProperty Name="JurisdictionId" ColumnName="JurisdictionId" />
+                <ScalarProperty Name="IncomeTypeId" ColumnName="IncomeTypeId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="PitalyticsModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoleStatus">
+            <EntityTypeMapping TypeName="PitalyticsModel.RoleStatu">
+              <MappingFragment StoreEntitySet="RoleStatus">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AdminRole" ColumnName="AdminRole" />
+                <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaxAuthorities">
+            <EntityTypeMapping TypeName="PitalyticsModel.TaxAuthority">
+              <MappingFragment StoreEntitySet="TaxAuthority">
+                <ScalarProperty Name="TaxAuthorityId" ColumnName="TaxAuthorityId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="InlandRevenueId" ColumnName="InlandRevenueId" />
+                <ScalarProperty Name="JurisdictionId" ColumnName="JurisdictionId" />
+                <ScalarProperty Name="UserRegistrationId" ColumnName="UserRegistrationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaxReports">
+            <EntityTypeMapping TypeName="PitalyticsModel.TaxReport">
+              <MappingFragment StoreEntitySet="TaxReport">
+                <ScalarProperty Name="TaxReportId" ColumnName="TaxReportId" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="IncomeTypeId" ColumnName="IncomeTypeId" />
+                <ScalarProperty Name="BVN" ColumnName="BVN" />
+                <ScalarProperty Name="IncomeAmount" ColumnName="IncomeAmount" />
+                <ScalarProperty Name="TaxAmount" ColumnName="TaxAmount" />
+                <ScalarProperty Name="BeneficiaryTIN" ColumnName="BeneficiaryTIN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaxReturns">
+            <EntityTypeMapping TypeName="PitalyticsModel.TaxReturn">
+              <MappingFragment StoreEntitySet="TaxReturn">
+                <ScalarProperty Name="TaxReturnId" ColumnName="TaxReturnId" />
+                <ScalarProperty Name="BeneficiaryTin" ColumnName="BeneficiaryTin" />
+                <ScalarProperty Name="BeneficiaryName" ColumnName="BeneficiaryName" />
+                <ScalarProperty Name="BVN" ColumnName="BVN" />
+                <ScalarProperty Name="BeneficiaryAddress" ColumnName="BeneficiaryAddress" />
+                <ScalarProperty Name="InvoiceNo" ColumnName="InvoiceNo" />
+                <ScalarProperty Name="ContractDate" ColumnName="ContractDate" />
+                <ScalarProperty Name="ContractDescription" ColumnName="ContractDescription" />
+                <ScalarProperty Name="ContractAmount" ColumnName="ContractAmount" />
+                <ScalarProperty Name="WHT_Rate" ColumnName="WHT_Rate" />
+                <ScalarProperty Name="WHT_Amount" ColumnName="WHT_Amount" />
+                <ScalarProperty Name="IncomeTypeId" ColumnName="IncomeTypeId" />
+                <ScalarProperty Name="UserRegistrationId" ColumnName="UserRegistrationId" />
+                <ScalarProperty Name="AgentOfDeductionId" ColumnName="AgentOfDeductionId" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="JurisdictionId" ColumnName="JurisdictionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserActivationCodes">
+            <EntityTypeMapping TypeName="PitalyticsModel.UserActivationCode">
+              <MappingFragment StoreEntitySet="UserActivationCode">
+                <ScalarProperty Name="UserActivationCodeId" ColumnName="UserActivationCodeId" />
+                <ScalarProperty Name="UserRegistrationId" ColumnName="UserRegistrationId" />
+                <ScalarProperty Name="ActivationCode" ColumnName="ActivationCode" />
+                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+                <ScalarProperty Name="IsUsed" ColumnName="IsUsed" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserBranches">
+            <EntityTypeMapping TypeName="PitalyticsModel.UserBranch">
+              <MappingFragment StoreEntitySet="UserBranch">
+                <ScalarProperty Name="UserBranchId" ColumnName="UserBranchId" />
+                <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+                <ScalarProperty Name="UserRegistrationId" ColumnName="UserRegistrationId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRegistrations">
+            <EntityTypeMapping TypeName="PitalyticsModel.UserRegistration">
+              <MappingFragment StoreEntitySet="UserRegistration">
+                <ScalarProperty Name="UserRegistrationId" ColumnName="UserRegistrationId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="DateVerified" ColumnName="DateVerified" />
+                <ScalarProperty Name="IsUserVerified" ColumnName="IsUserVerified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="PitalyticsModel.UserRole">
+              <MappingFragment StoreEntitySet="UserRole">
+                <ScalarProperty Name="UserRoleId" ColumnName="UserRoleId" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

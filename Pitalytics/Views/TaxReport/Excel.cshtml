@@ -1,0 +1,18 @@
+﻿@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model Pitalytics.Interfaces.ITaxReportView
+
+@{
+    var hasInfo = ((Model != null) && (Model.TaxReportCollection != null) && Model.TaxReportCollection.Any());
+    var taxReportCollection = Model.TaxReportCollection.ToList();
+}
+    ViewBag.Title = "Tax Report";
+}
+
+<div>
+
+
+</div>

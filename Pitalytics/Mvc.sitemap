@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<!--
+
+"Employee"
+"Administration"
+"CompanyAdmin"
+"AppConfig"
+
+-->
+
+<mvcSiteMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0"
+            xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0 MvcSiteMapSchema.xsd">
+
+  <mvcSiteMapNode title="Home" controller="Home" action="Index" roles=""
+         >
+
+
+    
+    <mvcSiteMapNode title="Administration" visibilityProvider="Pitalytics.Domain.Providers.SiteMapNodeVisibilityProvider, Pitalytics.Domain" controller="Administration" action="IncomeType" roles="SA"
+          >
+      <mvcSiteMapNode title="Income Types" controller="Administration" action="IncomeType" roles="SA"
+         >
+      </mvcSiteMapNode>
+       <mvcSiteMapNode title="Tax Report" controller="AgentOfDeduction" action="TaxReport" roles="SA"
+         >
+      </mvcSiteMapNode>
+      
+      <mvcSiteMapNode title="Industries" controller="Administration" action="Industry" roles="SA"
+         >
+      </mvcSiteMapNode>
+
+      <mvcSiteMapNode title="Inland Revenues" controller="Administration" action="InlandRevenue" roles="SA"
+         >
+        
+      </mvcSiteMapNode>
+       
+      <mvcSiteMapNode title="Tax Authorities" controller="Administration" action="TaxAuthority" roles="SA"
+         >
+      </mvcSiteMapNode>
+      
+      <mvcSiteMapNode title="Jurisdictions" controller="Administration" action="Jurisdiction" roles="SA"
+         >
+      </mvcSiteMapNode>
+     
+     
+      <mvcSiteMapNode title=" Tax Agents" controller="Administration" action="AgentOfDeduction" roles=""
+         >
+      </mvcSiteMapNode>
+     
+    </mvcSiteMapNode>
+  
+ 
+    <mvcSiteMapNode title="Manage Branch"   visibilityProvider="Pitalytics.Domain.Providers.SiteMapNodeVisibilityProvider, Pitalytics.Domain"   controller="AgentOfDeduction" action="Branch" roles="TAG"
+         >
+
+      
+    </mvcSiteMapNode>
+
+  
+    <mvcSiteMapNode title="Tax Returns"  visibilityProvider="Pitalytics.Domain.Providers.SiteMapNodeVisibilityProvider, Pitalytics.Domain" controller="AgentOfDeduction" action="TaxReturns" roles="TAG,TAGU"
+         >
+    </mvcSiteMapNode>
+     <mvcSiteMapNode title="Tax Returns"  visibilityProvider="Pitalytics.Domain.Providers.SiteMapNodeVisibilityProvider, Pitalytics.Domain" controller="AgentOfDeduction" action="TaxAuthorityTaxReturns" roles="TA,TAU"
+         >
+    </mvcSiteMapNode>
+     <mvcSiteMapNode title="Tax Returns"  visibilityProvider="Pitalytics.Domain.Providers.SiteMapNodeVisibilityProvider, Pitalytics.Domain" controller="AgentOfDeduction" action="SystemAdminTaxReturns" roles="SA, SAU"
+         >
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Manage Users"  visibilityProvider="Pitalytics.Domain.Providers.SiteMapNodeVisibilityProvider, Pitalytics.Domain" controller="Account" action="users" roles="TAG,TA,SA,"
+         >
+    </mvcSiteMapNode>
+
+  </mvcSiteMapNode>
+
+
+</mvcSiteMap>
+
+

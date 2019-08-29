@@ -1,0 +1,305 @@
+﻿
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model Pitalytics.Interfaces.ITaxReportView
+
+@{
+    ViewBag.Title = "Tax Report";
+
+   
+    var hasInfo = Model.TaxReportCollection.Count > 0;
+
+    var taxReportCollection = Model.TaxReportCollection.ToList();
+
+}
+
+
+
+
+
+<div style="text-align:right">
+    <a class="btn btn-primary" href="AddTaxReport">Submit Tax Reports</a>
+</div>
+
+<div class="breadcomb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="breadcomb-list">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="breadcomb-wp">
+                                <div class="breadcomb-icon">
+                                    <i class="notika-icon notika-windows"></i>
+                                </div>
+                                <div class="breadcomb-ctn">
+                                    <h2>@ViewBag.Title</h2>
+                                  
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       
+
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true"><i class="notika-icon notika-close"></i></span></button> @Html.ValidationSummary()
+            </div>
+        }
+    </div>
+</div>
+<!-- Breadcomb area End-->
+
+
+<div class="form-element-area">
+    <div class="container">
+        <div class="row">
+
+            @using (Html.BeginForm("TaxReport", "AgentOfDeduction"))
+            {
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-element-list mg-t-30">
+                        <div id="report" class="cmp-tb-hd">
+                            <div class="inbox-btn-st-ls btn-toolbar">
+                                <div class="btn-group ib-btn-gp active-hook nk-email-inbox">
+                                    <a href="~/AgentOfDeduction/TaxReport" class="btn btn-primary notika-btn-primary btn-sm"><i class="notika-icon notika-refresh"></i> Refresh</a>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group ic-cmp-int float-lb floating-lb">
+                                        <div class="form-ic-cmp">
+                                            <i class="notika-icon notika-"></i>
+                                        </div>
+                                        <div class="">
+                                            <label>Enter BVN</label>
+                                            <input type="text" id="dateExitTo" name="BVN" class="form-control" />
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group ic-cmp-int float-lb floating-lb">
+                                        <div class="form-ic-cmp">
+                                            <i class="notika-icon notika-"></i>
+                                        </div>
+                                        <div class="">
+                                            <label>Enter Year</label>
+                                            <input type="text" id="dateExitTo" name="Year" class="form-control" />
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+
+                            @if (hasInfo)
+                            {
+                                <div class="data-table-area">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="data-table-list">
+                                                    <div class="table-responsive">
+                                                        <table id="data-table-basic" class="table table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Year</th>
+                                                                    <th>Income Type</th>
+                                                                    <th>BVN</th>
+                                                                    <th>Income Amount</th>
+                                                                    <th>Tax Amount</th>
+                                                                    <th>Beneficiary TIN</th>
+
+                                                                   
+
+                                                                    
+                                                                   
+
+                                                                </tr>
+                                                            </thead>
+
+                                                            <tbody>
+                                                                @foreach (var item in Model.TaxReportCollection)
+                                                                {
+
+                                                                    <tr>
+                                                                        <td>@item.Year</td>
+                                                                        <td>@item.IncomeTypeName</td>                                                                     
+                                                                        <td>@item.BVN</td>                                                                     
+                                                                        <td>@item.IncomeAmount</td>
+                                                                        <td>@item.TaxAmount</td>
+                                                                        <td>@item.BeneficiaryTIN</td>
+
+
+                                                                    </tr>
+                                                                }
+                                                            </tbody>
+                                                            <tfoot>
+
+                                                            </tfoot>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="container">
+                                    <div class="alert alert-danger alert-dismissible" role="alert">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true"><i class="notika-icon notika-close"></i></span></button>No Tax Report Exists,
+
+                                    </div>
+                                </div>
+                            }
+
+
+
+
+
+
+
+
+
+                            <div class="container row">
+                                <div class="form-inline">
+                                    <div class="form-group ml-3">
+                                        <div class="form-example-int mg-t-15">
+                                            <button id="btnSubmit" name="btnSubmit" type="submit" class="btn btn-primary notika-btn-primary pull-right">Generate Report</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            }
+
+            @if (hasInfo)
+            {
+                using (Html.BeginForm("Excel", "TaxReport"))
+                {
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-element-list mg-t-30">
+                            <div class="cmp-tb-hd">
+
+                                @{int i = 0; }
+
+                                @foreach (var item in Model.TaxReportCollection)
+                                {
+
+                                    <input name="taxReportCollection[@i].Year" hidden value="@item.Year" />
+                                    <input name="taxReportCollection[@i].IncomeTypeName" hidden value="@item.IncomeTypeName" />                                  
+                                    <input name="taxReportCollection[@i].BVN" hidden value="@item.BVN" />
+                                    <input name="taxReportCollection[@i].IncomeAmount" hidden value="@item.IncomeAmount" />
+                                    <input name="taxReportCollection[@i].TaxAmount" hidden value="@item.TaxAmount" />
+                                    <input name = "taxReportCollection[@i].BeneficiaryTIN" hidden value = "@item.BeneficiaryTIN" />
+
+                                    i++;
+                                }
+                                <button class="btn btn-sm btn-default" type="submit" onclick="">Download as Excel</button>
+
+                            </div>
+                        </div>
+                    </div>
+                                        }
+
+
+
+                                    }
+           
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+
+
+<script>
+
+
+
+     $("#BranchId").change(function () {
+         alert("ok");
+            var url = '@Url.Action("FetchIncomeType", "AgentOfDeduction")';
+            var incomeTypes = $('#IncomeTypeId');
+
+         var id = $(this).val();
+
+
+         $.ajax({
+             "type": "Get",
+             "url": "/AgentOfDeduction/FetchIncomeType?branchId=" +
+                 id,
+
+             success: (function (response) {
+                 console.log(response);
+                 incomeTypes.empty(); // remove any existing options
+                 $.each(response, function (index, item) {
+                     incomeTypes.append($('<option></option>').text(item.IncomeTypeName).val(item.IncomeTypeId));
+                 });
+             })
+         });
+
+
+
+
+
+        });
+</script>
+@section JavaScriptsIncludes{
+
+
+    <script src="~/Scripts/data-table/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/data-table/data-table-act.js"></script>
+
+}
+
+@section Stylesheets{
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    <!-- Google Fonts
+        ============================================ -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/asset/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link href="~/Content/asset/css/newSite.css" rel="stylesheet" />
+}
+
+

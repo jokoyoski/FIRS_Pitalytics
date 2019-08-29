@@ -1,0 +1,86 @@
+﻿
+
+@section styleSheets{
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+}
+<td>
+    <a href="#4" data-toggle="modal" class="ShowModal btn btn-block" data-id="4" data-value="joko">
+        Joko
+    </a>
+</td>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+
+
+<div class="modal" id="mngIP">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> <img src="~/images/icon/delete2.png" /> </button>
+                <h4 class="modal-title">registratioin</h4>
+
+            </div>
+            <div id="Error">
+                @using (Html.BeginForm())
+                {
+                    @Html.ValidationSummary()
+
+                }
+            </div>
+            <div class="modal-body">
+
+
+                @using (Ajax.BeginForm("Registero", "Home", new AjaxOptions { UpdateTargetId = "Error", InsertionMode = InsertionMode.Replace, OnSuccess = "OnSuccess(data)" }))
+                {
+
+                    @Html.AntiForgeryToken()
+
+
+                    <fieldset>
+                        <legend>
+
+                        </legend>
+
+                        <input type="text" class="input form-control text-type" name="Email" placeholder="Email" />
+
+                    </fieldset>
+
+                    <div>
+                        <input type="submit" title="send" value="send" id="Add-Register" />
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+@section scripts{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script>
+      
+        $(".ShowModal").click(function () {
+            var id = $(this).data('id');
+            $('.modal').attr('id', id);
+            $('#IntellectualPropertyID').val(id);
+
+        });
+
+        function OnSuccess(data) {
+            alert("ok");
+            if (data.success == "false") {
+                $("#error").val(data.message);
+            }
+            else {
+
+            }
+        }
+    </script>
+
+
+}

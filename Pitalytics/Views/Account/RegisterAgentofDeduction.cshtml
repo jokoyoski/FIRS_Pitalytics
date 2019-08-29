@@ -1,0 +1,194 @@
+﻿@model Pitalytics.Interfaces.IUserAgentofDeductionView
+
+@{
+
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+
+
+
+
+<div class="container-fluid" style="background-image: linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)), url('../../images/kelly-sikkema-tQQ4BwN_UFs-unsplash.jpg'); height: 900px; width: 100%; background-repeat: no-repeat; background-size: cover; background-position: center;">
+
+    @using (Html.BeginForm("RegisterAgentofDeduction", "Account", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="container">
+
+
+            <div class="row mb-4">
+                <div class="col-12 col-md-6 mx-auto mt-5">
+                    <div class="card rounded-0">
+
+                        <div class="card-header text-white" style="background-color:#191919;">
+                            <h5 class="text-center">Registration</h5>
+                        </div>
+                        <span style="color:green">
+                            @Model.ProcessingMessage
+                        </span>
+                        <span style="color:red">
+                            @Html.ValidationSummary()
+                        </span>
+
+                        <div class="card-body">
+                            <p class="text-danger"></p>
+                            <p class="text-danger"></p>
+
+                            @*<div class="row mt-0 pt-0">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Company</label>
+                                        <div class="">
+                                            <input type="text" placeholder="Company" name="CompanyName" id="Company" value="@Model.CompanyName" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Website Address</label>
+                                        <div class="">
+                                            <input type="text" name="WebsiteAddress" id="" placeholder="www.example.com" value="@Model.WebsiteAddress" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>*@
+
+                            <div class="row mt-0 pt-0">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="control-label">Company</label>
+                                        <div class="">
+                                            <input type="text" placeholder="Company" name="CompanyName" id="Company" value="@Model.CompanyName" class="form-control col-lg-12" />
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="row mt-0 pt-0">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="control-label">Website Address</label>
+                                            <div class="">
+                                                <input type="text" name="WebsiteAddress" id="" placeholder="www.example.com" value="@Model.WebsiteAddress" class="form-control col-lg-12" />
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                           
+
+                                <div class="row mt-0 pt-0">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Email </label>
+                                            <div class="">
+                                                <input type="email" name="Email" placeholder="example@email.com" id="Emails" value="@Model.Email" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label"> Phone Number </label>
+                                            <div class="">
+                                                <input type="text" name="PhoneNumber" id="Phonenumber" placeholder="Phone Number" value="@Model.PhoneNumber" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row mt-0 pt-0">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label"> BVN </label>
+                                            <div class="">
+                                                <input type="text" name="BVN" id="bvn" placeholder="BVN" value="@Model.BVN" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label"> FIRS TIN </label>
+                                            <div class="">
+                                                <input type="text" name="FIRS_TIN" id="firs" placeholder="FIRS TIN" value="@Model.FIRS_TIN" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row mt-0 pt-0">
+                                    <div class="col-sm-6">
+                                        <div class="form-group ">
+                                            <label class="control-label">CAC REG NO </label>
+                                            <div class="">
+                                                <input type="text" name="CACRegNo" id="cac" placeholder="CAC Reg No" value="@Model.CACRegNo" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+
+
+                                        <div class="form-group ">
+                                            <label class="control-label"> Select Industry <span class="text-danger">*</span></label>
+
+                                            
+                                            @Html.DropDownList("IndustryId", Model.IndustryList, new { @class = "TimingId form-control" })
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
+                                <div class="row mt-0 pt-0">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label"> Password</label>
+                                            <div class="">
+                                                <input type="password" placeholder="Password" name="Password" id="Password" value="@Model.Password" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="control-label"> Confirm Password</label>
+                                            <div class="">
+                                                <input type="password" placeholder="Confirm Password" name="ConfirmPassword" id="ConfirmPassword" value="" class="form-control inputtext" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+
+                            @*<div style="color:black" class="text-left d-inline">
+                                <a href="/Account/Login" class="mt-4"><span style="color:black;">Go Back To Home</span></a>
+                            </div>*@
+
+                                <div class="text-center mt-3">
+                                   
+                                        <a href="/Account/Login" style="text-decoration:none" class="btn btn-danger"><span style="color:white;">Cancel</span></a>
+                                   
+                                    <input type="submit" id="submit" name="login" value="REGISTER" class="btn btn-primary" />
+                                </div>
+
+
+                            </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+

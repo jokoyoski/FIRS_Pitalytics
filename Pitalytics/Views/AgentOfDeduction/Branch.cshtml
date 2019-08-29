@@ -1,0 +1,353 @@
+﻿@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@model Pitalytics.Interfaces.IBranchListView
+
+@{ 
+    ViewBag.Title = "Branch";
+}
+
+@{
+    var hasInfo = (Model != null) && (Model.BranchCollection.Any());
+}
+
+
+@Html.AntiForgeryToken()
+
+<div class="breadcomb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="breadcomb-list">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="breadcomb-wp">
+                                <div class="breadcomb-icon">
+                                    <i class="notika-icon notika-windows"></i>
+                                </div>
+                                <div class="breadcomb-ctn">
+                                    <h2>@ViewBag.Title</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-3">
+                            <div class="breadcomb-report">
+                                <button type="button" data-target="#myModal" class="btn" style="background-color:black" data-toggle="modal" data-placement="left" title="Assign Branch "> Assign Branch to Jurisdiction </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+@using (Ajax.BeginForm("AddBranch", "AgentOfDeduction", new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "frmEmp" }))
+{
+
+    <div>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                      
+                        <div style="text-align:right" class="mb-2">
+                            <h4 style="text-align: center;" class="text-primary"> Assign Branch To Jurisdiction</h4>
+                        </div>
+
+                        
+                            <p>Ensure you enter company's full name, followed by the branch location<span class="text-danger">*</span> </p>
+                        
+
+                    </div>
+                    <div class="modal-body" id="frmEmp">
+                        <div class="container-fluid">
+
+                            <div class="form-group">
+                                
+                                <div class="">
+                                    <input type="text" placeholder="Branch Name" name="BranchName" required autocomplete="off" id="Company" value="@Model.BranchName" class="form-control text-type" />
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group ">
+                                
+                                @Html.DropDownList("JurisdictionId", Model.JurisdictionNames, new { @class = "TimingId form-control" })
+                            </div>
+
+
+
+
+
+                            <div style="text-align:center">
+                                <input type="submit" id="submit" name="login" value="Add Branch" style="color:white;" class="btn btn-primary mt-2" />
+                                <a class="btn btn-danger" href="Branch">Cancel</a>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+
+
+
+
+
+@if (hasInfo)
+{
+    <div class="data-table-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="data-table-list">
+                        <div class="table-responsive">
+                            <table id="data-table-basic" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Branch Name</th>
+                                        <th>Jurisdiction</th>
+                                        <th>View</th>
+                                        <th>Action</th>
+                                        <th>Action</th>
+                                        <th>Action</th>
+
+
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var d in Model.BranchCollection)
+                                    {
+                                    <tr>
+                                        <td>
+                                            @d.BranchName
+                                        </td>
+                                        <td>
+                                            @d.JurisdictionName
+                                        </td>
+                                        @if (d.IsActive == true)
+                                        {
+                                            <td>
+                                                <a class="btn btn-success" href="BranchUser?branchId=@d.BranchId">View</a>
+
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td></td>
+
+                                        }
+                                        @if (d.IsActive == true)
+                                        {
+                                            <td>
+                                            
+                                                <button class="btn btn-primary" onclick="editModal('/AgentOfDeduction/EditBranch?branchId=@d.BranchId')" data-placement="left" title="Edit IncomeType">Modify</button>
+
+                                            
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td></td>
+
+                                        }
+
+
+
+                                        @if (d.IsActive == false)
+                                        {
+                                            <td>
+
+                                                <a class="btn btn-success" href="ReactivateBranch?branchId=@d.BranchId">Reactivate Branch</a>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                <a class="btn btn-danger" href="DeleteBranch?branchId=@d.BranchId">Deactivate Branch</a>
+
+
+                                            </td>
+                                        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    </tr>
+                                    }
+                                </tbody>
+                                <tfoot>
+
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="container">
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true"><i class="notika-icon notika-close"></i></span></button>No Branch Exists, Add New Branch.
+
+        </div>
+    </div>
+}
+
+
+
+
+
+
+<div class="modal fade" id="createModal" role="dialog">
+    <div class="modal-dialog modals-default">
+        <div class="modal-content">
+            <div id="displayCreate">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="viewModal" role="dialog">
+    <div class="modal-dialog modals-default">
+        <div class="modal-content">
+            <div id="displayView">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="editModal" role="dialog">
+    <div class="modal-dialog modals-default">
+        <div class="modal-content">
+            <div id="displayEdit">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteModal" role="dialog">
+    <div class="modal-dialog modals-default">
+        <div class="modal-content">
+            <div id="displayDelete">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var URL = "";
+
+    function createModal(URL) {
+
+        $.ajax({
+            type: "GET",
+            url: URL,
+            success: function (data) {
+                $("#displayCreate").html(data);
+            }
+        });
+
+        $("#createModal").modal();
+    }
+
+    function viewModal(URL) {
+
+        $.ajax({
+            type: "GET",
+            url: URL,
+            success: function (data) {
+                $("#displayView").html(data);
+            }
+        });
+
+        $("#viewModal").modal();
+    }
+
+    function editModal(URL) {
+
+        $.ajax({
+            type: "GET",
+            url: URL,
+            success: function (data) {
+                $("#displayEdit").html(data);
+            }
+        });
+
+        $("#editModal").modal();
+
+    }
+
+    function deleteModal(URL) {
+
+        $.ajax({
+            type: "GET",
+            url: URL,
+            success: function (data) {
+                $("#displayDelete").html(data);
+            }
+        });
+
+        $("#deleteModal").modal();
+
+    }
+</script>
+
+@section Stylesheets{
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    <!-- Google Fonts
+        ============================================ -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/asset/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link href="~/Content/asset/css/newSite.css" rel="stylesheet" />
+}
+@section JavaScriptsIncludes{
+
+
+    <script src="~/Scripts/data-table/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/data-table/data-table-act.js"></script>
+
+}
+
+
+
+
+
+
+
+

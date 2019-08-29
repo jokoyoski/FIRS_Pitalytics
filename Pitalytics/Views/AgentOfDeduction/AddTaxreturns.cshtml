@@ -1,0 +1,156 @@
+﻿
+@model Pitalytics.Interfaces.IBranchListView
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <div class="container">
+        <a class="btn btn default-form" href="Taxreturns">Go Back to Tax Returns List</a>
+    </div>
+</div>
+
+<div class="container-fluid">
+    @{
+        if (Model.FileTypeId > 0)
+        {
+            <a class="btn btn-primary mt-2" href="/Administration/FileResult?fileId=@Model.FileTypeId">Download File Format</a>
+
+        }
+        else
+        {
+
+        }
+
+    }
+    @using (Html.BeginForm("AddTaxReturns", "AgentOfDeduction", FormMethod.Post , new { id = "employeeForm", enctype = "multipart/form-data", encoding = "multipart/form-data" }))
+    {
+                    @Html.AntiForgeryToken()
+
+                    <div class="container">
+
+
+            <div class="row no-gutters pt-5">
+                <div style="text-align:center" class="card col-md-5 m-auto">
+
+                  
+                    <span style="color:green">
+                        @Model.ProcessingMessage
+                    </span>
+                    <span style="color:red">
+                        @Html.ValidationSummary()
+                    </span>
+
+                    <div class="card-body">
+                        <p class="text-danger"></p>
+                        <p class="text-danger"></p>
+                        <div class="container-fluid">
+
+
+                            <div class="form-group text-left ">
+                                <label class="control-label"> Select Branch <span class="text-danger">*</span></label>
+
+                              
+                                @Html.DropDownList("BranchId", Model.BranchNames, new { @class = "TimingId form-control" })
+                            </div>
+
+
+
+                            <div class="form-group text-left ">
+                                <label class="control-label"> Select IncomeTypes <span class="text-danger">*</span></label>
+
+                               
+                                @Html.DropDownList("IncomeTypeId", Model.IncomeTypeNames, new { @class = "TimingId form-control" })
+                            </div>
+
+
+
+
+
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left">
+                                <div class="form-group ic-cmp-int float-lb floating-lb">
+                                    <div class="form-ic-cmp ">
+                                        <label class="">Upload File</label>
+                                        <input data-placement="left" class="file" title="Upload Level Excel Sheet" type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" name="employeeExcelSheet" value="" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="text-align:center">
+                                <input type="submit" id="submit" name="login" value="Submit" style="color:white;" class="btn btn-primary mt-2" />
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+
+                    
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+
+
+
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+
+
+<script>
+
+
+
+     $("#BranchId").change(function () {
+         
+            var url = '@Url.Action("FetchIncomeType", "AgentOfDeduction")';
+            var incomeTypes = $('#IncomeTypeId');
+
+         var id = $(this).val();
+
+
+         $.ajax({
+             "type": "Get",
+             "url": "/AgentOfDeduction/FetchIncomeType?branchId=" +
+                 id,
+
+             success: (function (response) {
+                 console.log(response);
+                 incomeTypes.empty(); // remove any existing options
+                 $.each(response, function (index, item) {
+                     incomeTypes.append($('<option></option>').text(item.IncomeTypeName).val(item.IncomeTypeId));
+                 });
+             })
+         });
+
+
+
+
+
+        });
+</script>
+
+
+
+@section Stylesheets{
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    <!-- Google Fonts
+        ============================================ -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/asset/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link href="~/Content/asset/css/newSite.css" rel="stylesheet" />
+}
+@section JavaScriptsIncludes{
+
+
+    <script src="~/Scripts/data-table/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/data-table/data-table-act.js"></script>
+
+}

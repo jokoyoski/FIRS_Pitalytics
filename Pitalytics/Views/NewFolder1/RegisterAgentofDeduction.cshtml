@@ -1,0 +1,186 @@
+﻿@model Pitalytics.Interfaces.IUserAgentofDeductionView
+
+@{
+  
+}
+
+
+
+
+
+    <div class="container-fluid" style="background-image: url('../../images/kelly-sikkema-G_91H-3qZOA-unsplash.jpg'); height: 900px; width: 100%; background-repeat: no-repeat; background-size: cover; background-position: center;">
+
+        @using (Html.BeginForm("RegisterAgentofDeduction", "Account", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="container">
+
+
+                <div class="row no-gutters pt-5">
+                    <div class="card col-md-5 m-auto">
+
+                        <div class="card-header">
+                            <h4 style="text-align: center;" class="text-primary">New  Registration</h4>
+                        </div>
+                        <span style="color:green">
+                            @Model.ProcessingMessage
+                        </span>
+                        <span style="color:red">
+                            @Html.ValidationSummary()
+                        </span>
+                        <div class="card-body">
+                            <p class="text-danger"></p>
+                            <p class="text-danger"></p>
+
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="control-label">Company</label>
+                                    <div class="">
+                                        <input type="text" placeholder="Company" name="CompanyName" id="Company" value="@Model.CompanyName" class="form-control text-type" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group pl-5">
+                                    <label class="control-label">Website Address</label>
+                                    <div class="">
+                                        <input type="text" name="WebsiteAddress" id="" placeholder="www.example.com" value="@Model.WebsiteAddress" class="form-control text-type" />
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="control-label">Email </label>
+                                    <div class="">
+                                        <input type="email" name="Email" placeholder="example@email.com" id="Emails" value="@Model.Email" class="form-control text-type" />
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group pl-5">
+                                    <label class="control-label"> Phone Number </label>
+                                    <div class="">
+                                        <input type="text" name="PhoneNumber" id="Phonenumber" placeholder="Phone Number" value="@Model.PhoneNumber" class="form-control text-type" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="control-label"> BVN </label>
+                                    <div class="">
+                                        <input type="text" name="BVN" id="bvn" placeholder="BVN" value="@Model.BVN" class="form-control text-type" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group pl-5">
+                                    <label class="control-label"> FIRS TIN </label>
+                                    <div class="">
+                                        <input type="text" name="FIRS_TIN" id="firs" placeholder="FIRS TIN" value="@Model.FIRS_TIN" class="form-control text-type" />
+                                    </div>
+                                </div>
+                            </div>
+                            
+
+                            <div class="row">
+                                <div class="form-group ">
+                                    <label class="control-label">CAC REG NO </label>
+                                    <div class="">
+                                        <input type="text" name="CACRegNo" id="cac" placeholder="CAC Reg No" value="@Model.CACRegNo" class="form-control text-type" />
+                                    </div>
+                                </div>
+
+
+
+                               
+
+                            </div>
+                           
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="control-label"> Password</label>
+                                    <div class="">
+                                        <input type="password" placeholder="Password" name="Password" id="Password" value="@Model.Password" class="form-control text-type" />
+                                    </div>
+                                </div>
+                               
+                                    <div class="form-group pl-5">
+                                        <label class="control-label"> Confirm Password</label>
+                                        <div class="">
+                                            <input type="password" placeholder="Confirm Password" name="ConfirmPassword" id="ConfirmPassword" value="" class="form-control inputtext text-type" />
+                                        </div>
+                                    </div>
+                               
+
+                            </div>
+                          
+
+                          
+                            <div style="text-align:center">
+                                <input type="submit" id="submit" disabled name="login" value="REGISTER" class="btn btn-danger mt-2" />
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+
+
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+    <script type="text/javascript">
+
+       
+        $("#Company").bind('input propertychange', function () {
+
+            var company = $("#Company").val().length > 0;
+            var email = $("#Emails").val().length > 0;
+            var phonenumber = $("#Phonenumber").val().length > 0;
+            var bvn = $("#bvn").val().length > 0;
+            var firs = $("#firs").val().length > 0;
+            var cac = $("#cac").val().length > 0;
+            var password = $("#Password").val().length > 0;
+           
+            if (email && phonenumber && bvn && firs && cac && password && company) {
+               
+                $("#submit").prop('disabled', false);
+            }
+
+        });
+
+        $("#Emails").change(function () {
+           
+            $("#Company").trigger('propertychange');
+        })
+
+        $("#Phonenumber").change(function () {
+            $("#Company").trigger('propertychange');
+        })
+
+        $("#bvn").change(function () {
+            $("#Company").trigger('propertychange');
+        })
+
+        $("#firs").change(function () {
+            alert("ok");
+            $("#Company").trigger('propertychange');
+        })
+
+        $("#cac").change(function () {
+            $("#Company").trigger('propertychange');
+        })
+
+        $("#Password").change(function () {
+            $("#Company").trigger('propertychange');
+        });
+        
+    </script>

@@ -1,0 +1,54 @@
+﻿@helper YesOrNo(bool value)
+{
+/**/
+    @(value ? "Yes" : "No")
+}
+
+@helper Checked(bool isChecked)
+{
+/**/
+    @(isChecked ? "checked" : "")
+}
+
+@helper IsDisabled(bool isDisabled)
+{
+/**/
+    @(isDisabled ? "disabled = 'disabled'" : "")
+}
+
+
+@helper DisplayDate(DateTime? date)
+{
+/**/
+    @(date?.ToString("yyyy-MM-dd") ?? "")
+}
+
+@helper DisplayInt(int intValue)
+{
+/**/
+    @(intValue < 1 ? "" : intValue.ToString())
+}
+
+
+
+
+
+@helper TablePager(int count = 0)
+{
+/**/
+
+var isDisplayPage = count > 10 ? "" : "display:none;";
+    <div id="pager" class="pager" style="@isDisplayPage">
+        <img src="/Content/tablesorter/icons/first.png" class="first" alt="first" />
+        <img src="/Content/tablesorter/icons/prev.png" class="prev" alt="prev" />
+        <input type="text" class="pagedisplay" />
+        <img src="/Content/tablesorter/icons/next.png" class="next" alt="next" />
+        <img src="/Content/tablesorter/icons/last.png" class="last" alt="last" />
+        <select class="pagesize">
+            <option selected="selected" value="10">10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+        </select>
+    </div>
+}

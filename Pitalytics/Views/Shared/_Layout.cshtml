@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title Pitalytics</title>
+    @Styles.Render("/Content/css/style")
+    @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("metaTags", false)
+    @RenderSection("Stylesheets", false)
+
+</head>
+<body>
+    <div class="header-top-area">
+        <div class="container">
+            @Html.Partial("_Header")
+        </div>
+    </div>
+    @Html.Partial("_Menu")
+
+    <div class="container body-content">
+        @RenderBody()
+
+    </div>
+
+    <div class="footer-copyright-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="footer-copy-right">
+                        <p> Copyright &copy; @DateTime.Now.Year - Pitalytics.All rights reserved</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <footer class="text-center text-white py-3" style="background-color:#191919;"></footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+    @Scripts.Render("~/Scripts/js/script")
+    @RenderSection("JavaScriptsIncludes", false)
+    @RenderSection("JavaScriptsExecution", false)
+    @RenderSection("Scripts", false)
+
+</body>
+</html>

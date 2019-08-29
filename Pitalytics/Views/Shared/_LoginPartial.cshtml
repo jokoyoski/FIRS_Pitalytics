@@ -1,0 +1,61 @@
+﻿@using Pitalytics.Interfaces.ValueTypes
+@using System.Web
+
+
+@{
+
+
+    bool isAuthenticated = ViewContext.HttpContext.User.Identity.IsAuthenticated;
+
+    var roles = (String[])HttpContext.Current.Session[SessionKey.UserRoles];
+
+    var userName = (string)HttpContext.Current.Session[SessionKey.FullName];
+
+    var profilePicture = "";
+
+   
+
+
+
+
+}
+
+<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+    @if (isAuthenticated)
+    {
+        <div class="header-top-menu b">
+            <ul  class="nav navbar-nav notika-top-nav row ">
+               
+            
+                    <li class="nav-item dropdown">
+                        <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><span><i class="notika-icon notika-settings"></i></span></a>
+
+                        <div class="dropdown-menu animated zoomIn dropdown-trig-sing">
+
+                            <ul class="dropdown-menu" role="menu">
+                                 <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="~/Administration/User"><i class="notika-icon notika-support"></i> <small>Change Password</small></a>
+                                </li>
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="~/Account/Logoff">
+                                        <i class="notika-icon notika-app"></i> <small>Log Out</small>
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </div>
+
+                    </li>
+
+                
+
+               
+            </ul>
+        </div>
+
+    }
+</div>
+
+
+
+
